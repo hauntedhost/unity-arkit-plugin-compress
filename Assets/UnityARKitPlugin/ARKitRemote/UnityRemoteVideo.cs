@@ -44,7 +44,7 @@ namespace UnityEngine.XR.iOS
 		{
 			int numYBytes = camera.videoParams.yWidth * camera.videoParams.yHeight;
 			int numUVBytes = camera.videoParams.yWidth * camera.videoParams.yHeight / 2; //quarter resolution, but two bytes per pixel
-			
+
 			m_textureYBytes = new byte[numYBytes];
 			m_textureUVBytes = new byte[numUVBytes];
 			m_textureYBytes2 = new byte[numYBytes];
@@ -103,9 +103,9 @@ namespace UnityEngine.XR.iOS
 
 			m_Session.SetCapturePixelData (true, PinByteArray(ref m_pinnedYArray,YByteArrayForFrame(currentFrameIndex)), PinByteArray(ref m_pinnedUVArray,UVByteArrayForFrame(currentFrameIndex)));
 
-			connectToEditor.SendToEditor (ConnectionMessageIds.screenCaptureYMsgId, YByteArrayForFrame(1-currentFrameIndex));
-			connectToEditor.SendToEditor (ConnectionMessageIds.screenCaptureUVMsgId, UVByteArrayForFrame(1-currentFrameIndex));
-			
+			connectToEditor.SendToEditor(ConnectionMessageIds.screenCaptureYMsgId, ByteConverter.ConvertByteCompress(YByteArrayForFrame(1 - currentFrameIndex)));
+			connectToEditor.SendToEditor(ConnectionMessageIds.screenCaptureUVMsgId, ByteConverter.ConvertByteCompress(UVByteArrayForFrame(1 - currentFrameIndex)));
+
 		}
 		#endif
 	}
